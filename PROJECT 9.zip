@@ -1,0 +1,51 @@
+
+var trex ,trex_running, ground, ground_image, invisibleGround;
+function preload(){
+  
+  trex_running = loadAnimation("trex1.png", "trex3.png", "trex4.png");
+
+
+  ground_image = loadImage("ground2.png");
+}
+
+function setup(){
+  
+  createCanvas(600,200)
+  
+  //create a ground sprite
+  ground = createSprite(300,180,600,30)
+  ground.addImage("ground image", ground_image);
+  ground.shapeColor = "black";
+
+  //create a trex sprite
+  trex = createSprite(100,150, 20,20);
+  trex.addAnimation("running", trex_running);
+  trex.scale = 0.7;
+  
+  //create an invisible ground sprite
+  invisibleGround = createSprite(300,210,600,45);
+  invisibleGround.visible = false
+
+}
+
+function draw(){
+  
+  background("grey")
+  //jumping
+  if (keyWentDown("space")&&trex.y>153)
+  {
+    trex.velocityY = -10;
+  }
+
+  trex.velocityY = trex.velocityY + 0.5 ;
+  console.log(trex.y);
+  trex.collide(invisibleGround); 
+  ground.velocityX = -5
+  
+  if (ground.x<0){
+    ground.x = 300;
+  }
+  
+  drawSprites();
+}
+ 
